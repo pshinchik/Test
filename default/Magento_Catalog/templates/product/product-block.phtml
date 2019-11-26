@@ -1,0 +1,50 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php
+    $_helper = $this->helper('Magento\Catalog\Helper\Output');
+    $_helperImage = $this->helper('Magento\Catalog\Helper\Image');
+    $_abstractProductBlock = $block->getLayout()->createBlock('\Magento\Catalog\Block\Product\AbstractProduct');
+    $_product = $block->getProduct();
+?>
+<?php $buttonTitle = __('Add to Cart'); ?>
+<div class="product-header-wrapper">
+    <?php $_productImage = $_helperImage->init($_product, 'product_base_image')->getUrl(); ?>
+    <div class="product-info-price-title">
+        <?php if($_productImage): ?>
+            <div class="image">
+                <img src="<?php echo $_productImage; ?>" alt="" />
+            </div>
+        <?php endif; ?>
+
+        <div class="content">
+            <?php if($_product->getName()): ?>
+                <div class="product-name"><?php echo $_product->getName(); ?></div>
+            <?php endif; ?>
+            <div class="description">
+                <?php echo $this->getLayout()->createBlock('Magento\Cms\Block\Block')->setBlockId('product_header_text')->toHtml(); ?>
+            </div>
+        </div>
+    </div>
+
+    <div class="product-info-price-main">
+        <?php if($_abstractProductBlock): ?>
+            <div class="price">
+                <span><?php echo $_abstractProductBlock->getProductPrice($_product); ?></span>
+            </div>
+        <?php endif; ?>
+        <div class="actions">
+            <button type="submit"
+                    title="<?= /* @escapeNotVerified */ $buttonTitle ?>"
+                    class="action primary tocart">
+                <span><?= /* @escapeNotVerified */ $buttonTitle ?></span>
+            </button>
+        </div>
+    </div>
+</div>
